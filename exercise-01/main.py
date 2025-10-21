@@ -8,14 +8,18 @@ y = mnist.targets.numpy()
 
 X_bin = (X > 0.5).astype(np.uint8)
 
+print("X_bin shape:", X_bin.shape)
+
 p_pixel_prob = X_bin.mean(axis=0)
+
+print("Pixel-wise probability shape:", p_pixel_prob.shape, p_pixel_prob[12][12])
 
 p_pixel_prob_class = np.zeros((10, 28, 28))
 for i in range(10):
     class_image = X_bin[y == i]
     p_pixel_prob_class[i] = class_image.mean(axis=0)
 
-if _name_ == "_main_":
+if __name__ == "_main_":
     choice = int(input("Select a mode\n1. For pure randomness\n2. For classification of numbers\nEnter your choice: "))
     while True:
         number = int(input("Please enter a number you want to generate: "))
