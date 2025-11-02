@@ -16,22 +16,26 @@ def weights_init_normal(m):
 #           U-NET
 ##############################
 
-
+# Encoder part
 class UNetDown(nn.Module):
     def __init__(self, in_size, out_size, normalize=True, dropout=0.0):
         super(UNetDown, self).__init__()
+        # Convolutional layer to downsize the image
         layers = [nn.Conv2d(in_size, out_size, 4, 2, 1, bias=False)]
+        # Normalization layer for stabilizing training
         if normalize:
             layers.append(nn.InstanceNorm2d(out_size))
         layers.append(nn.LeakyReLU(0.2))
+        # Dropout layer for regularization
         if dropout:
             layers.append(nn.Dropout(dropout))
+        # Sequential model RNN
         self.model = nn.Sequential(*layers)
 
     def forward(self, x):
         return self.model(x)
 
-
+# Decoder part
 class UNetUp(nn.Module):
     def __init__(self, in_size, out_size, dropout=0.0):
         super(UNetUp, self).__init__()
@@ -50,7 +54,6 @@ class UNetUp(nn.Module):
         x = torch.cat((x, skip_input), 1)
 
         return x
-
 
 class GeneratorUNet(nn.Module):
     def __init__(self, in_channels=3, out_channels=3):
@@ -104,7 +107,6 @@ class GeneratorUNet(nn.Module):
 ##############################
 #        Discriminator
 ##############################
-
 
 class Discriminator(nn.Module):
     def __init__(self, in_channels=3):
