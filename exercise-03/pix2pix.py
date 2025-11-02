@@ -48,6 +48,8 @@ if __name__ == "__main__":
 
     cuda = True if torch.cuda.is_available() else False
 
+    print(cuda)
+
     # Loss functions
     criterion_GAN = torch.nn.MSELoss()
     criterion_pixelwise = torch.nn.L1Loss()
@@ -105,7 +107,11 @@ if __name__ == "__main__":
     # Tensor type
     Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
-    print(Tensor.type())
+    # 1. Create an *instance* of a tensor
+    my_tensor = Tensor([1, 2, 3])
+
+    # 2. Now you can call .type() on the instance
+    print(my_tensor.type())
 
 
     def sample_images(batches_done):
