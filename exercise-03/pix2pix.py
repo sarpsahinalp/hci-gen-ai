@@ -105,6 +105,8 @@ if __name__ == "__main__":
     # Tensor type
     Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
+    print(Tensor.type())
+
 
     def sample_images(batches_done):
         """Saves a generated sample from the validation set"""

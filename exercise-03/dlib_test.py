@@ -1,5 +1,5 @@
 import cv2
-from utils import get_face_with_landmarks
+from utils import get_face_with_landmarks, get_landmark_image
 
 print("Starting live demo... Press 'q' to quit.")
 
@@ -23,8 +23,8 @@ while True:
     frame = cv2.flip(frame, 1)
 
     # Display the resulting frame
-    landmark_image = get_face_with_landmarks(frame)
-
+    # landmark_image = get_face_with_landmarks(frame)
+    landmark_image = get_landmark_image(frame)
     cv2.imshow('Landmark Image', landmark_image)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
